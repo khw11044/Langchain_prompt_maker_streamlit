@@ -51,6 +51,8 @@ if clear_btn:
 # 이전 대화 기록 출력 
 print_messages()
 
+# 경고 메시지를 띄우기 위한 빈 영역
+warning_msg = st.empty()
 
 # 만약 사용자 입력이 들어오면 
 if user_input := st.chat_input():
@@ -69,12 +71,8 @@ if user_input := st.chat_input():
                 ai_answer += token
                 container.markdown(ai_answer)
     except:
-        with st.chat_message("assistant"):
-            container = st.empty()
-            
-            ai_answer = "왼쪽 사이드바에서 Task를 입력해주세요"
-
-            container.markdown(ai_answer)
+        warning_msg.error("왼쪽 사이드바에서 Task를 입력해주세요")
+ 
 
     # 대화 기록을 저장한다.
     add_message("user", user_input)
